@@ -3,6 +3,25 @@ from BulkEmail import send_bulk_emails
 
 st.title("Bulk Email Sender")
 
+with st.expander("🔐 How to enable 2FA and get an App Password (Gmail Help)"):
+    st.markdown("""
+    **Step 1: Enable 2-Step Verification**
+    
+    - Go to your Google Account: [myaccount.google.com/security](https://myaccount.google.com/security)
+    - Under **“Signing in to Google”**, click **2-Step Verification**.
+    - Follow the steps to turn it on.
+
+    **Step 2: Generate an App Password**
+    
+    - Once 2FA is on, go to: [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
+    - Sign in if prompted.
+    - Under **"Select app"**, choose **Mail**.
+    - Under **"Select device"**, choose **Other**, name it something like *ColdMail*.
+    - Click **Generate**, and copy the 16-character password shown.
+
+    🔒 **Your account stays safe!** This password only works for sending emails — you can revoke it anytime from the same page.
+    """, unsafe_allow_html=True)
+
 with st.form("email_form"):
     st.subheader("📝 Email Details")
     user_email = st.text_input("Your Gmail Address")
