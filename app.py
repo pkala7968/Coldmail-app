@@ -41,4 +41,4 @@ if submitted:
         result = send_bulk_emails(user_email, app_password, subject, body, recipients)
         st.success("Done! Here are the results:")
         for email, status in result.items():
-            st.write(f"📧 {email.strip()}: {status}")
+            st.write(f"{email.strip()}: {status}")
