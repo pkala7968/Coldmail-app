@@ -1,34 +1,30 @@
 import emails
+from email.message import EmailMessage
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import smtplib
 
-def send_bulk_emails(user_email, app_password, subject, body, recipients):
-    message = emails.html(
-        subject=subject,
-        html=f"<p>{body}</p>",
-        text=body,
-        mail_from=user_email
-    )
-
-    smtp_config = {
-        "host": "smtp.gmail.com",
-        "port": 587,
-        "timeout": 10,
-        "tls": True,
-        "user": user_email,
-        "password": app_password
-    }
-
-    status = {}
-
+def send_bulk_emails(user_email, app_password, subject, body, recipients, attachment_file=None, filename=None):
+    results = {}
     for recipient in recipients:
-        recipient = recipient.strip()
-        print(f"Sending to {recipient}...")
+        # Create a new message for each recipient
+        message = EmailMessage()
+        message["Subject"] = subject
+        message["From"] = user_email
+        message["To"] = recipient.strip()
+        message.set_content(body)
+        if attachment_file and filename:
+            message.add_attachment(
+                attachment_file,
+                maintype="application",
+                subtype="octet-stream",
+                filename=filename
+            )
         try:
-            r = message.send(to=recipient, smtp=smtp_config)
-            if r.status_code == 250:
-                status[recipient] = "✅ Sent"
-            else:
-                status[recipient] = f"❌ Failed (Code: {r.status_code})"
+            with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+                smtp.login(user_email, app_password)
+                smtp.send_message(message)
+            results[recipient] = "✅ Sent"
         except Exception as e:
-            status[recipient] = f"❌ Error: {str(e)}"
-
-    return status
+            results[recipient] = f"❌ Error: {str(e)}"
+    return results
