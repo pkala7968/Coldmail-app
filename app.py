@@ -1,5 +1,5 @@
 import streamlit as st
-from BulkEmail import send_bulk_emails
+from Modules.BulkEmail import send_bulk_emails
 
 st.title("Bulk Email Sender")
 
