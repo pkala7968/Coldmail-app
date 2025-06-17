@@ -1,7 +1,4 @@
-import emails
 from email.message import EmailMessage
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 import smtplib
 
 def send_bulk_emails(user_email, app_password, subject, body, recipients, attachment_file=None, filename=None):
