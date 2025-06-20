@@ -1,4 +1,4 @@
-# 📬 ColdMail: Job Applications Made Easy
+#  ColdMail: Job Applications Made Easy
 
 So I am currently on the lookout for internships, and one thing I've learnt so far is that finding a good internship is really hard.  
 I've tried several apps (Internshala, LinkedIn, JobsDB etc.) but it’s hard even getting a reply from employers.
@@ -10,14 +10,14 @@ But then again, you need to send multiple application emails to have a chance to
 
 ---
 
-## 🚀 What is ColdMail?
+##  What is ColdMail?
 
-ColdMail is a simple **Streamlit** web app that allows users to send **bulk emails** from their Gmail account using a secure **App Password**.
+ColdMail is a simple **Streamlit** web app that allows users to send emails to **multiple users** from their Gmail account using a secure **App Password**.
 
 > Designed especially for job applications, it supports:
-- ✅ Multiple recipients
-- ✅ Custom subject and body
-- ✅ A clean and minimal UI
+-  Multiple recipients
+-  Custom subject and body
+-  A clean and minimal UI
 
 ---
 
