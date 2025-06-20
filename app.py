@@ -6,13 +6,26 @@ st.set_page_config(page_title="ColdMail", layout="centered")
 st.title("ColdMail: email job applications with AI")
 
 with st.expander("🔐 How to enable 2FA and get an App Password (Gmail Help)"):
-    st.markdown("Your 2FA help here...")
+    st.markdown("""
+    **Step 1: Enable 2-Step Verification**
+    - Go to your Google Account: [myaccount.google.com/security](https://myaccount.google.com/security)
+    - Under **“Signing in to Google”**, click **2-Step Verification**.
+    - Follow the steps to turn it on.
+
+    **Step 2: Generate an App Password**
+    - Once 2FA is on, go to: [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
+    - Sign in if prompted.
+    - Under **"Select app"**, choose **Mail**.
+    - Under **"Select device"**, choose **Other**, name it something like *ColdMail*.
+    - Click **Generate**, and copy the 16-character password shown.
+    """)
 
 # form
+uploaded_cv = st.file_uploader("Upload your resume", type=["pdf", "docx", "txt"])
 with st.form("email_form"):
     st.subheader("Email Details")
 
-    uploaded_cv = st.file_uploader("Upload your resume", type=["pdf", "docx", "txt"])
+    #uploaded_cv = st.file_uploader("Upload your resume", type=["pdf", "docx", "txt"])
 
     user_email = st.text_input("Enter Your Email Address")
     app_password = st.text_input("App Password (not your real password)", type="password")
