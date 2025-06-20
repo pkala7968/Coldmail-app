@@ -22,10 +22,18 @@ def generate_emailbody(cv_text, job_title="Software Engineer", company="ABC Corp
     ---
 
     Write a personalized job application email (only email body) for the position of "{job_title}" at "{company}".
+    MAKE SURE YOU DONT HAVE ANY PLACEHOLDER VALUES IN THE EMAIL BODY (like "Dear [Name],[mention a specific area of ABC Corp's work that interests you] etc.").
     Make it formal, confident, and not a copy of the resume — just a strong, concise email.
-    There should be missing values in the email body(like "Dear [Name],[mention a specific area of ABC Corp's work that interests you] etc."),
+
     also just give me the email body, no other text (like "Here is the email body:,Subject: Application for Data Scientist Position at ABC Corp etc.")
+    extract the details like name or specific are of contribution from the cv.
     """
 
     response = model.generate_content(prompt)
     return response.text.strip()
+
+if __name__=="__main__":
+    with open('resume.txt','r') as cv:
+        file = cv.read()
+        text=generate_emailbody(file)
+        print(text)     
