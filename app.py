@@ -20,12 +20,20 @@ with st.expander("🔐 How to enable 2FA and get an App Password (Gmail Help)"):
     - Click **Generate**, and copy the 16-character password shown.
     """)
 
-# form
-uploaded_cv = st.file_uploader("Upload your resume", type=["pdf", "docx", "txt"])
+# Session state for email generation
+if "email_generated" not in st.session_state:
+    st.session_state.email_generated = False
+if "subject" not in st.session_state:
+    st.session_state.subject = ""
+if "body" not in st.session_state:
+    st.session_state.body = ""
+
+# Upload resume before form
+uploaded_cv = st.file_uploader("Upload your resume", type=["pdf", "docx", "txt"], key="cv_upload")
+
+# --- Form ---
 with st.form("email_form"):
     st.subheader("Email Details")
-
-    #uploaded_cv = st.file_uploader("Upload your resume", type=["pdf", "docx", "txt"])
 
     user_email = st.text_input("Enter Your Email Address")
     app_password = st.text_input("App Password (not your real password)", type="password")
@@ -33,30 +41,45 @@ with st.form("email_form"):
     company = st.text_input("Company Name")
     recipients_input = st.text_area("Recipient Email Addresses (comma-separated)", height=100)
 
-    submitted = st.form_submit_button("Send Emails")
+    generate_clicked = st.form_submit_button("Generate Email")
 
-# Do everything AFTER submit
-if submitted:
-    if not all([user_email, app_password, job_title, company, recipients_input, uploaded_cv]):
-        st.error("Please fill in all fields and upload your resume.")
+# Handle email generation
+if generate_clicked:
+    if not all([uploaded_cv, job_title, company]):
+        st.error("Please upload your resume and enter Job Title & Company Name.")
     else:
-        recipients = recipients_input.split(",")
         uploaded_cv.seek(0)
-        file_bytes = uploaded_cv.read()
-        uploaded_cv.seek(0)
+        st.session_state.body = generate_emailbody(uploaded_cv, job_title=job_title, company=company)
+        st.session_state.subject = f"Job Application for {job_title} at {company}"
+        st.session_state.email_generated = True
+        st.success("Email generated! You can now review and send it.")
 
-        subject = f"Job Application for {job_title} at {company}"
-        body = generate_emailbody(uploaded_cv, job_title=job_title, company=company)
-        uploaded_cv.seek(0)
+# Show editable fields if email is generated
+if st.session_state.email_generated:
+    st.subheader("📧 Review and Edit Email")
 
-        st.info("Sending emails, please wait...")
-        result = send_bulk_emails(
-            user_email, app_password, subject, body,
-            recipients,
-            attachment_file=file_bytes,
-            filename=uploaded_cv.name
-        )
+    subject = st.text_input("Email Subject", value=st.session_state.subject)
+    body = st.text_area("Email Body", value=st.session_state.body, height=300)
 
-        st.success("Done! Here are the results:")
-        for email, status in result.items():
-            st.write(f"{email.strip()}: {status}")
+    send_now = st.button("Send Emails")
+
+    if send_now:
+        if not all([user_email, app_password, recipients_input, uploaded_cv, subject, body]):
+            st.error("Please fill in all fields before sending.")
+        else:
+            recipients = [email.strip() for email in recipients_input.split(",") if email.strip()]
+            uploaded_cv.seek(0)
+            file_bytes = uploaded_cv.read()
+            uploaded_cv.seek(0)
+
+            st.info("Sending emails, please wait...")
+            result = send_bulk_emails(
+                user_email, app_password, subject, body,
+                recipients,
+                attachment_file=file_bytes,
+                filename=uploaded_cv.name
+            )
+
+            st.success("Done! Here are the results:")
+            for email, status in result.items():
+                st.write(f"{email}: {status}")
