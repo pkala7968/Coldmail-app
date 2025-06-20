@@ -56,7 +56,7 @@ if generate_clicked:
 
 # Show editable fields if email is generated
 if st.session_state.email_generated:
-    st.subheader("📧 Review and Edit Email")
+    st.subheader("Review and Edit Email")
 
     subject = st.text_input("Email Subject", value=st.session_state.subject)
     body = st.text_area("Email Body", value=st.session_state.body, height=300)
