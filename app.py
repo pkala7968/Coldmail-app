@@ -1,6 +1,7 @@
 import streamlit as st
 from Modules.BulkEmail import send_bulk_emails
 from Modules.LLMemail import generate_emailbody
+from Modules.Extraction import extract_text
 
 st.set_page_config(page_title="ColdMail", layout="centered")
 st.title("ColdMail: email job applications with AI")
@@ -53,7 +54,8 @@ if st.button("Generate Emails") and uploaded_cv:
             if "," in line:
                 company, email = [x.strip() for x in line.split(",", 1)]
                 uploaded_cv.seek(0)
-                body = generate_emailbody(uploaded_cv, job_title=job_title, company=company)
+                cv_text = extract_text(uploaded_cv)
+                body = generate_emailbody(cv_text, job_title=job_title, company=company)
                 subject = f"Job Application for {job_title} at {company}"
                 st.session_state.email_list.append({
                     "company": company,
