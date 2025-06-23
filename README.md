@@ -23,8 +23,8 @@ ColdMail is a simple **Streamlit** web app that allows users to send emails to *
 -  A clean and minimal UI
 
 #### Note: 
-    Your Gmail account is never stored anywhere.
-    You authenticate securely using a Gmail App Password (with 2FA enabled), so your credentials stay safe.
+Your Gmail account is never stored anywhere.
+You authenticate securely using a Gmail App Password (with 2FA enabled), so your credentials stay safe.
 
 ---
 
