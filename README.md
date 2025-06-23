@@ -16,8 +16,15 @@ ColdMail is a simple **Streamlit** web app that allows users to send emails to *
 
 > Designed especially for job applications, it supports:
 -  Multiple recipients
--  Custom subject and body
+-  Automatically generate customized email bodies using your resume
+-  Review each email before sending
+-  Using a secure Gmail App Password
+-  Review each email before sending
 -  A clean and minimal UI
+
+#### Note: 
+    Your Gmail account is never stored anywhere.
+    You authenticate securely using a Gmail App Password (with 2FA enabled), so your credentials stay safe.
 
 ---
 
