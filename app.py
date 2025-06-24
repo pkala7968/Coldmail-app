@@ -32,7 +32,7 @@ if "ready_to_review" not in st.session_state:
 # Input from user
 uploaded_cv = st.file_uploader("Upload your resume", type=["pdf", "docx", "txt"])
 
-job_title = st.text_input("Job Title")
+job_title = st.text_input("Job Title", placeholder="Enter the job title you are applying for")
 
 recipient_company_input = st.text_area(
     "Enter one company & recipient per line (format: Company Name, recipient@example.com):",
@@ -40,8 +40,8 @@ recipient_company_input = st.text_area(
     placeholder="ABC Corp, hr@abc.com\nXYZ Ltd, jobs@xyz.com"
 )
 
-user_email = st.text_input("Enter Your Email")
-app_password = st.text_input("App Password", type="password")
+user_email = st.text_input("Sender Email",placeholder="Enter the email you want to send from")
+app_password = st.text_input("App Password", type="password",placeholder="Enter your Gmail App Password (Not your regular password!)")
 
 if st.button("Generate Emails") and uploaded_cv:
     if not all([uploaded_cv, job_title, recipient_company_input]):
