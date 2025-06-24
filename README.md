@@ -31,7 +31,7 @@ You authenticate securely using a Gmail App Password (with 2FA enabled), so your
 
 ---
 
-## 💻 How to Run Locally
+##  How to Run Locally
 
 ### 1. **Clone the repo**
 
@@ -53,6 +53,14 @@ API_KEY=your_gemini_api_key_here
 ```bash
 streamlit run app.py
 ```
+
+---
+
+## Use the deployed tool
+
+The project has been deployed using streamlit and can be used at: https://coldmail-v1.streamlit.app/
+
+---
 
 ## ⚠️ Note
 
