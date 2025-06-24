@@ -49,7 +49,20 @@ Create a file named keys.env in the root directory:
 ```ini
 API_KEY=your_gemini_api_key_here
 ```
-### 4. **Run the app**
+### 4. **Fix the LLMemail code**
+It has been changed for deployment. To run locally you need to go to [Modules/LLMemail.py] and un-comment the following:
+```ini
+# from dotenv import load_dotenv
+# import os
+## Load API key from keys.env file
+# load_dotenv(dotenv_path="keys.env")
+# api_key = os.getenv("API_KEY")
+```
+and comment out the api key used in deployment:
+```ini
+api_key = st.secrets["API_KEY"]
+```
+### 5. **Run the app**
 ```bash
 streamlit run app.py
 ```

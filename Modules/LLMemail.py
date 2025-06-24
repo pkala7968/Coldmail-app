@@ -1,9 +1,8 @@
 from google import generativeai as genai
-# import os
 import streamlit as st
 # from dotenv import load_dotenv
-
-# Load API key from keys.env file
+# import os
+## Load API key from keys.env file
 # load_dotenv(dotenv_path="keys.env")
 # api_key = os.getenv("API_KEY")
 
