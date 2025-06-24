@@ -50,7 +50,7 @@ Create a file named keys.env in the root directory:
 API_KEY=your_gemini_api_key_here
 ```
 ### 4. **Fix the LLMemail code**
-It has been changed for deployment. To run locally you need to go to [Modules/LLMemail.py] and un-comment the following:
+It has been changed for deployment. To run locally you need to go to [Modules/LLMemail.py](Modules/LLMemail.py) and un-comment the following:
 ```ini
 # from dotenv import load_dotenv
 # import os
