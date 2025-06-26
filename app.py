@@ -43,9 +43,10 @@ recipient_company_input = st.text_area(
 user_email = st.text_input("Sender Email",placeholder="Enter the email you want to send from")
 app_password = st.text_input("App Password", type="password",placeholder="Enter your Gmail App Password (Not your regular password!)")
 
-if st.button("Generate Emails") and uploaded_cv:
+if st.button("Generate Emails"):
     if not all([uploaded_cv, job_title, recipient_company_input]):
         st.error("Please upload your resume and enter Job Title & Company Name.")
+        st.session_state.ready_to_review = False
     else:
         lines = recipient_company_input.strip().split("\n")
         st.session_state.email_list = []
@@ -64,8 +65,8 @@ if st.button("Generate Emails") and uploaded_cv:
                     "body": body
                 })
 
-    st.session_state.ready_to_review = True
-    st.session_state.current_index = 0
+        st.session_state.ready_to_review = True
+        st.session_state.current_index = 0
 
 # Review & Send One by One
 if st.session_state.ready_to_review and st.session_state.current_index < len(st.session_state.email_list):
