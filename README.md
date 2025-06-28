@@ -80,6 +80,8 @@ The project has been deployed using streamlit and can be used at: https://coldma
 ![Input Body](images/Coldmail.png)
 ![Output Body](images/Action.png)
 
+**Check out the demo 👉** [here](https://youtu.be/sr_B3sEyF5U)
+
 ---
 
 ## ⚠️ Note
