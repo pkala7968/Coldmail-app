@@ -75,6 +75,11 @@ The project has been deployed using streamlit and can be used at: https://coldma
 
 ---
 
+## Check it out!
+![Input Body](images/Coldmail.png)
+![Output Body](images/Action.png)
+---
+
 ## ⚠️ Note
 
 This project is just a tool, it's an early deployment of a proper web application im working on...
