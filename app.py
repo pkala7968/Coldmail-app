@@ -30,18 +30,24 @@ if "ready_to_review" not in st.session_state:
     st.session_state.ready_to_review = False
 
 # Input from user
-uploaded_cv = st.file_uploader("Upload your resume", type=["pdf", "docx", "txt"])
+uploaded_cv = st.file_uploader("Upload your resume :red[*]", type=["pdf", "docx", "txt"])
 
-job_title = st.text_input("Job Title", placeholder="Enter the job title you are applying for")
+job_title = st.text_input("Job Title :red[*]", placeholder="Enter the job title you are applying for")
 
 recipient_company_input = st.text_area(
-    "Enter one company & recipient per line (format: Company Name, recipient@example.com):",
+    "Enter one company & recipient per line (format: Company Name, recipient@example.com) :red[*] :",
     height=150,
     placeholder="ABC Corp, hr@abc.com\nXYZ Ltd, jobs@xyz.com"
 )
 
-user_email = st.text_input("Sender Email",placeholder="Enter the email you want to send from")
-app_password = st.text_input("App Password", type="password",placeholder="Enter your Gmail App Password (Not your regular password!)")
+portfolio_links = st.text_area(
+    "Enter you portfolio Links (comma-separated)",
+    placeholder="https://linkedin.com/..., https://github.com/... etc.",
+    height=50
+)
+
+user_email = st.text_input("Sender Email :red[*]",placeholder="Enter the email you want to send from")
+app_password = st.text_input("App Password :red[*]", type="password",placeholder="Enter your Gmail App Password (Not your regular password!)")
 
 if st.button("Generate Emails"):
     if not all([uploaded_cv, job_title, recipient_company_input]):
@@ -57,6 +63,8 @@ if st.button("Generate Emails"):
                 uploaded_cv.seek(0)
                 cv_text = extract_text(uploaded_cv)
                 body = generate_emailbody(cv_text, job_title=job_title, company=company)
+                if portfolio_links:
+                    body += f"\n\n{portfolio_links.replace(',', '\n')}"
                 subject = f"Job Application for {job_title} at {company}"
                 st.session_state.email_list.append({
                     "company": company,
