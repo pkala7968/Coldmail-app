@@ -43,7 +43,7 @@ recipient_company_input = st.text_area(
 portfolio_links = st.text_area(
     "Enter you portfolio Links (comma-separated)",
     placeholder="https://linkedin.com/..., https://github.com/... etc.",
-    height=50
+    height=68
 )
 
 user_email = st.text_input("Sender Email :red[*]",placeholder="Enter the email you want to send from")
