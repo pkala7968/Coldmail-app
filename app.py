@@ -1,4 +1,5 @@
 import streamlit as st
+import re
 from Modules.BulkEmail import send_bulk_emails
 from Modules.LLMemail import generate_emailbody
 from Modules.Extraction import extract_text
@@ -63,8 +64,16 @@ if st.button("Generate Emails"):
                 uploaded_cv.seek(0)
                 cv_text = extract_text(uploaded_cv)
                 body = generate_emailbody(cv_text, job_title=job_title, company=company)
+
                 if portfolio_links:
-                    body += f"\n\n{portfolio_links.replace(',', '\n')}"
+                    formatted_links = []
+                    for link in re.findall(r'https?://[^\s,]+', portfolio_links):
+                        domain = re.search(r'https?://(?:www\.)?([^/]+)', link)
+                        if domain:
+                            site = domain.group(1).split('.')[0].capitalize()
+                            formatted_links.append(f"[{site}: {link}]")
+                    body += "\n" + "\n".join(formatted_links)
+
                 subject = f"Job Application for {job_title} at {company}"
                 st.session_state.email_list.append({
                     "company": company,
